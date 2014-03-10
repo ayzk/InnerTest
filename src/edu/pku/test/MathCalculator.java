@@ -1,22 +1,26 @@
 package edu.pku.test;
 
+import sun.tools.tree.ThisExpression;
+
 public class MathCalculator {
 	
-	String static_string = "pku";
+	 String static_string = "pku";
+	 static public int static_int=1;
+//	 public int int1;
 	
-	public void test() {
-		int a = 1;
-		long b = 2;
-		a = a + 1;
-		String str1 = "abc";
-		String str2 = "def";
-		java.util.HashMap<String, Object> checkTmpMap = new java.util.HashMap<String, Object>();
-		checkTmpMap.put("str1", str1);
-		checkTmpMap.put("str2", str2);
-		checkTmpMap.put("b", b);
-		checkTmpMap.put("a", a);
-		Controller.handleCheckExpr(null, checkTmpMap, 0);
-	}
+//	public void test() {
+//		int a = 1;
+//		long b = 2;
+//		a = a + 1;
+//		String str1 = "abc";
+//		String str2 = "def";
+//		java.util.HashMap<String, Object> checkTmpMap = new java.util.HashMap<String, Object>();
+//		checkTmpMap.put("str1", str1);
+//		checkTmpMap.put("str2", str2);
+//		checkTmpMap.put("b", b);
+//		checkTmpMap.put("a", a);
+//		Controller.handleCheckExpr(null, checkTmpMap, 0);
+//	}
 	
 	public boolean isPositive(int a) {
 		boolean res;
@@ -39,11 +43,9 @@ public class MathCalculator {
 	}
 	
 	public int sum (int a, int b) {
-		
-		int res = a * b;
+		int res=a+b;
 		Controller.markLocation("locate_check_003");
-		
-		return res;
+		return  res;
 	}
 	
 	public String sumString (String a, String b) {
@@ -64,13 +66,23 @@ public class MathCalculator {
 		return res;
 	}
 	
-	
-	
-	public static int sub(int a, int b) {
+
+	public  int sub(int a, int b) {
 		int res = a - b;
 		Controller.markLocation("locate_check_007");
 		Controller.markLocation("locate_check_008");
 		return res;
 	}
+	
+	public int cal9(int a){
+		int int1=a;
+		Controller.markLocation("locate_check_009");
+		Controller.markLocation("locate_check_010");
+		Controller.markLocation("locate_check_011");
+		
+		return int1;
+		
+	}
+	
 		
 }

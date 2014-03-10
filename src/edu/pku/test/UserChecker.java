@@ -24,7 +24,7 @@ public class UserChecker extends Checker {
 			System.out.println("[INFO] " + UserChecker.class + " - The subclass of Checker is executing");
 			int a = (Integer)variables.get("a");
 			int b = (Integer)variables.get("b");
-			int res = (Integer)variables.get("res");
+			int res =(Integer)variables.get("res");
 		
 			assertEquals(a + b, res);
 		}

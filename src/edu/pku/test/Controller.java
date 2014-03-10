@@ -123,21 +123,19 @@ public class Controller {
 		String className = checker.getClassName();
 		
 		// back up the original byte code
-		byte[] tb = null;
-		if (controller.originalClasses.containsKey(className)) {
-			tb = controller.originalClasses.get(className);
-		} else {
-			tb = ClassSwapper.getByteCode(className);
+		byte[] tb = ClassSwapper.getByteCode(className);
+		if (!controller.originalClasses.containsKey(className)) {
+			controller.originalClasses.put(className, tb);
 		}
-				
+		
+		//System.out.println("[class name]"+className);
+	
 		// Instrumentation
 		tb = Instrumentor.instrument(tb, ic);
 
 		// Hot swap, update the class in JVM by the instrumented class
 		ClassSwapper.swap(className, tb);
-		
-		// Back up the current class
-		controller.originalClasses.put(className, tb);
+
 
 		return controller.checkers.size() - 1;
 	}
@@ -151,6 +149,8 @@ public class Controller {
 	 */
 	public static void handleCheckExpr (Object obj, Map<String, Object> values, int checkerId) {
 		createInstance();
+		System.out.print("edu.pku.test.Controller.handleCheckExpr-[DEBUG]");
+		System.out.println("<checkerid:"+checkerId+"><obj_now:"+obj+"><obj_tocheck:"+controller.checkers.get(checkerId).getObject()+">");
 		controller.checkers.get(checkerId).checkExpression(obj, values);
 	}
 	

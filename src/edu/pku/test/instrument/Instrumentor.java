@@ -7,7 +7,6 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
 
-import edu.pku.test.instrument.agent.InstrumentAgent;
 import edu.pku.test.instrument.agent.LabelInstrumentAgent;
 import edu.pku.test.instrument.agent.LineNumberInstrumentAgent;
 import edu.pku.test.instrument.agent.RelativeLineNumberInstrumentAgent;
@@ -40,11 +39,10 @@ public class Instrumentor {
 			ClassWriter cw = new ClassWriter(0);
 			cn.accept(cw);
 			b = cw.toByteArray();
-
-			// Write down the byte code for view
-			//FileOutputStream writebyte = new FileOutputStream("tmpInstrumented" + ic.getId() + ".class"); 
-			//writebyte.write(b);
-			//writebyte.close();
+			 //Write down the byte code for view
+			FileOutputStream writebyte = new FileOutputStream("tmpInstrumented" + ic.getId() + ".class"); 
+			writebyte.write(b);
+			writebyte.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,6 +77,7 @@ public class Instrumentor {
 		byte[] b = cw.toByteArray();
 		FileOutputStream writebyte = new FileOutputStream("YearCaculator.class");
 		writebyte.write(b);
+		writebyte.close();
 	}
 
 }

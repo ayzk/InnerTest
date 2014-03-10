@@ -117,4 +117,8 @@ public class Checker {
 		return objectType;
 	}
 	
+	public Object getObject(){
+		return obj;
+	}
+	
 }
