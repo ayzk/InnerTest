@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Detailcheck by ayzk</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Detailcheck</h1>
+        <p class="header">detail check tool for java</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/ayzk/detailcheck/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/ayzk/detailcheck/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/ayzk/detailcheck">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/ayzk">ayzk</a></p>
+
+
+      </header>
+      <section>
+        <p>InnerTest: A Unit Testing Tool Supporting Input-Specific Assertions on Internal States</p>
+
+<p>Introduction
+People
+Download
+Guide
+Contact
+Introduction</p>
+
+<p>InnerTest is a tool that supporting input-specific assertion on internal states.</p>
+
+<p>An important factor of the fault-detection capability of a test suite is how well the test oracles catch a triggered fault. Traditional test oracles are defined on the outputs of test executions. Recently, researchers have shown theoretically that test oracles defined on the internal states of execution could improve the fault-detection capability. However, in practice, we can only write assertions that are common to all test inputs, and there is no supporting mechanism for the testers to write input-specific assertions on internal states.</p>
+
+<p>People</p>
+
+<p>Muyao Zhu   Master Student at Peking University
+Tao Zhu Master Student at Peking University
+Yingfei Xiong   Assistant Professor at Peking University
+Dan Hao Associate Professor at Peking University
+Lu Zhang    Professor at Peking University
+Download</p>
+
+<p>InnerTest is implemented as a Java library, you can download the library .jar file here Download</p>
+
+<p>A Guide to the Samples</p>
+
+<p>Sample Code
+Figure 1: Sample Source Code &amp; Test Code</p>
+
+<p>We take source code and test code in Figure 1&amp;2 for example. The code calculates whether the number of positives is bigger than negatives or not. But there is a bug in the source code. The element "0" will be treated as negative.</p>
+
+<p>But test with input int[] input = new int[]{-2, -1, 0, 1, 2, 3, 4} cannot find the error, the return value still be 1. (The number of negatives was calculated as 3, which should be 2. But the number of positives of 4, 4 is bigger than 3 and 2.)</p>
+
+<p>Then we use InnerTest to write input-specific assertion on internal state to find this error. First we should import our library into your build path. Besides our tool, you need also make sure that tools.jar from your Java SDK should be imported into your build path.</p>
+
+<p>We provide several kinds of interfaces for testers to locate the code to be checked, here we use the one that first add a marker inside the code to locate where to check: Controller.addCheck(String locationKey, int times, Object input, Object expectedValue, String expression) It has 5 parameters.</p>
+
+<p>The first one is the marker identifier, which we defined in source ocde, to locate the code where we want to check or test</p>
+
+<p>The second parameter is execution times, it defines at which time executing here, we check the expression and value. The reason that we import this parameter into interface is that, a statement may be executed several times in one test, and specifying only the location does not distinguish different executions.</p>
+
+<p>The third one is class object, to specifies the Java file that we should instrument. We use the class name to locate a file name because the source file name is not available in Java byte code.</p>
+
+<p>The last two are theexpression to be checked and the expected value, in this example, theyshould be integer value 2 and variable negative, means checking whether negative == 2 or not. Last but not lease, you should invoke a clean method Controller.clean(). To ensure that the assertion is only effective during the execution of the test. This clean up is necessary because there may be dependencies between tests. When there are dependencies, we cannot start a new process for each test execution, but has to execute one test after another in one process. See Fig 3 belo.</p>
+
+<p>Write InnerTest oracle
+Figure 3: Write Internal oracle</p>
+
+<p>Before you run your InnerTest test, you should configure the JVM arguments in Run Configuration. Right click the test code, Go to Run As -&gt; Run Configurations -&gt; Arguments -&gt; VM arguments, add one line arguments "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000", this means you allow jdb to modify your class file</p>
+
+<p>run configuration
+Figure 4: Run Configuration</p>
+
+<p>After that, you can run you InnerTest test now. Fig 5 below shows the result of the InnerTest, the result says that the variable negative should be "2", but actually it's "3".</p>
+
+<p>Test result
+Figure 5: Test Result</p>
+
+<p>Contact</p>
+
+<p>Please contact "<a href="mailto:zhumuyao@gmail.com">zhumuyao@gmail.com</a>" if you had any questions about InnerTest</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
