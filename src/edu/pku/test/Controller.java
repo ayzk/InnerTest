@@ -1,5 +1,6 @@
 package edu.pku.test;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -123,19 +124,32 @@ public class Controller {
 		String className = checker.getClassName();
 		
 		// back up the original byte code
-		byte[] tb = ClassSwapper.getByteCode(className);
-		if (!controller.originalClasses.containsKey(className)) {
-			controller.originalClasses.put(className, tb);
+		byte[] tb = null;
+ 		if (controller.originalClasses.containsKey(className)) {
+ 			tb = controller.originalClasses.get(className);
+ 		} else {
+ 			tb = ClassSwapper.getByteCode(className);
+ 		}
+		
+/*		try{
+			FileOutputStream writebyte0 = new FileOutputStream("src" + ic.getId() + ".class"); 
+			writebyte0.write(tb);
+			writebyte0.close();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
 		}
 		
-		//System.out.println("[class name]"+className);
-	
+		System.out.println("[class name]"+className);
+*/	
 		// Instrumentation
 		tb = Instrumentor.instrument(tb, ic);
 
 		// Hot swap, update the class in JVM by the instrumented class
 		ClassSwapper.swap(className, tb);
-
+		
+		// Back up the current class
+		controller.originalClasses.put(className, tb);
 
 		return controller.checkers.size() - 1;
 	}

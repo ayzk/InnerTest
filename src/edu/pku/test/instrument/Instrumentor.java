@@ -33,6 +33,14 @@ public class Instrumentor {
 			ClassNode cn = new ClassNode();
 			ClassReader cr = new ClassReader(tb);
 			cr.accept(cn, 0);
+						
+//			ClassWriter cw0 = new ClassWriter(0);
+//			cn.accept(cw0);
+//			b=cw0.toByteArray();
+//			FileOutputStream writebyte0 = new FileOutputStream("before" + ic.getId() + ".class"); 
+//			writebyte0.write(b);
+//			writebyte0.close();
+
 			InstrumentTemplate it = getInstrumentTemplate(ic);
 			it.getInstrumentAgent().instrument(cn, ic);
 			
@@ -40,9 +48,9 @@ public class Instrumentor {
 			cn.accept(cw);
 			b = cw.toByteArray();
 			 //Write down the byte code for view
-			FileOutputStream writebyte = new FileOutputStream("tmpInstrumented" + ic.getId() + ".class"); 
-			writebyte.write(b);
-			writebyte.close();
+//			FileOutputStream writebyte = new FileOutputStream("after" + ic.getId() + ".class"); 
+//			writebyte.write(b);
+//			writebyte.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();

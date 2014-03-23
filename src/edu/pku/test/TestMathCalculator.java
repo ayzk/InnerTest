@@ -69,19 +69,19 @@ public class TestMathCalculator {
 	@Test
 	public void cal9(){
 		MathCalculator yc2 = new MathCalculator();
-		Controller.addCheck("locate_check_009", 1, yc, 0, "int1;");
+		Controller.addCheck("locate_check_009", 1, yc2, 0, "int1;");
 		
 		Controller.addCheck("locate_check_010", 1, yc, 1, "int1;");
-		//Controller.addCheck("locate_check_011", 1, MathCalculator.class, 1, "int1;");
+		Controller.addCheck("locate_check_011", 1, MathCalculator.class, 1, "int1;");
 		
 		//yc2.cal9(1);
 		//yc2.cal9(1);
 		//System.out.print("yc is ");
-		System.out.println((Object)yc);
+		//System.out.println((Object)yc);
 		//System.out.println((Object)yc2);
 		
-		System.out.println(yc.cal9(1));
 		System.out.println(yc2.cal9(0));
+		System.out.println(yc.cal9(0));
 		
 	}
 
