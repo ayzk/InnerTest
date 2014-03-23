@@ -1,7 +1,5 @@
 package edu.pku.test;
 
-import sun.tools.tree.ThisExpression;
-
 public class MathCalculator {
 	
 	 String static_string = "pku";
@@ -79,7 +77,7 @@ public class MathCalculator {
 		Controller.markLocation("locate_check_009");
 		Controller.markLocation("locate_check_010");
 		Controller.markLocation("locate_check_011");
-		
+		Controller.markLocation("locate_check_012");
 		return int1;
 		
 	}

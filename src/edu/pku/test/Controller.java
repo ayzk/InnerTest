@@ -1,6 +1,5 @@
 package edu.pku.test;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,6 +66,8 @@ public class Controller {
 	 * The interface for end user.
 	 * To add a check expression like assertion in Junit, but more detailed.
 	 */
+	
+	
 	public static int addCheck(int lineNo, int times, Object obj, Object value, String expr) {
 		createInstance();
 		Checker checker = new Checker(times, obj, value, expr);
@@ -76,7 +77,18 @@ public class Controller {
 
 		return add(checker, ic);
 	}
+	public static int addCheck(int  lineNo, int times, Object obj, String expr) {		
+		return addCheck( lineNo ,times,  obj,  true,  expr) ;
+	}
 	
+	public static int addCheck(int  lineNo, Object obj, Object value, String expr) {
+		return addCheck( lineNo, 1   ,  obj, value,  expr);
+	}
+	
+	public static int addCheck(int  lineNo, Object obj, String expr) {
+		return addCheck( lineNo, 1   ,  obj,  true,  expr);
+	}
+
 	public static int addCheck (Checker uc, int lineNo) {
 		createInstance();
 		int objectType = uc.getObjectType();
@@ -85,6 +97,16 @@ public class Controller {
 		
 		return add(uc, ic);
 	}
+//	
+////	public static int addCheck(String methodName, int relativeLineNo, int times, Object obj, Object value, String expr) {
+////		createInstance();
+////		Checker checker = new Checker(times, obj, value, expr);
+////		int objectType = checker.getObjectType();
+////		int checkerId = controller.checkers.size();
+////		InstrumentorConfig ic = new InstrumentorConfig(checker.getVariableNames(), methodName, relativeLineNo, checkerId, ActionKeys.CHECK_TYPE_EXPR, objectType);
+////
+////		return add(checker, ic);
+////	}
 	
 	public static int addCheck(String locationKey, int times, Object obj, Object value, String expr) {
 		createInstance();
@@ -95,6 +117,19 @@ public class Controller {
 
 		return add(checker, ic);
 	}
+	
+	public static int addCheck(String locationKey, int times, Object obj, String expr) {		
+		return addCheck( locationKey,times,  obj,  true,  expr) ;
+	}
+	
+	public static int addCheck(String locationKey, Object obj, Object value, String expr) {
+		return addCheck( locationKey, 1   ,  obj, value,  expr);
+	}
+	
+	public static int addCheck(String locationKey, Object obj, String expr) {
+		return addCheck( locationKey, 1   ,  obj,  true,  expr);
+	}
+
 	
 	public static int addCheck (Checker uc, String locationKey) {
 		createInstance();
@@ -108,15 +143,6 @@ public class Controller {
 	/*
 	 * 
 	 */
-	public static int addCheck(String methodName, int relativeLineNo, int times, Object obj, Object value, String expr) {
-		createInstance();
-		Checker checker = new Checker(times, obj, value, expr);
-		int objectType = checker.getObjectType();
-		int checkerId = controller.checkers.size();
-		InstrumentorConfig ic = new InstrumentorConfig(checker.getVariableNames(), methodName, relativeLineNo, checkerId, ActionKeys.CHECK_TYPE_EXPR, objectType);
-
-		return add(checker, ic);
-	}
 	
 	private static int add (Checker checker, InstrumentorConfig ic) {
 		createInstance();

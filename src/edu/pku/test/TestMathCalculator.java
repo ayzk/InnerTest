@@ -9,7 +9,7 @@ public class TestMathCalculator {
 
 	@Test
 	public void cal1() {
-		Controller.addCheck(28, 1, yc, true, "res;");
+		Controller.addCheck(28, 1, yc, true, "res");
 		yc.isPositive(-1);
 	}
 	
@@ -84,7 +84,11 @@ public class TestMathCalculator {
 		System.out.println(yc.cal9(0));
 		
 	}
-
+	@Test
+	public void cal10(){
+		Controller.addCheck("locate_check_012", yc, "int1==1");
+		yc.cal9(0);
+	}
 
 	@After
 	public void clean() {
