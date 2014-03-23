@@ -1,5 +1,7 @@
 package edu.pku.test;
 
+import sun.tools.tree.ThisExpression;
+
 public class MathCalculator {
 	
 	 String static_string = "pku";
