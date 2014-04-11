@@ -1,26 +1,10 @@
 package edu.pku.test;
 
-import sun.tools.tree.ThisExpression;
-
 public class MathCalculator {
 	
 	 String static_string = "pku";
 	 static public int static_int=1;
 //	 public int int1;
-	
-//	public void test() {
-//		int a = 1;
-//		long b = 2;
-//		a = a + 1;
-//		String str1 = "abc";
-//		String str2 = "def";
-//		java.util.HashMap<String, Object> checkTmpMap = new java.util.HashMap<String, Object>();
-//		checkTmpMap.put("str1", str1);
-//		checkTmpMap.put("str2", str2);
-//		checkTmpMap.put("b", b);
-//		checkTmpMap.put("a", a);
-//		Controller.handleCheckExpr(null, checkTmpMap, 0);
-//	}
 	
 	public boolean isPositive(int a) {
 		boolean res;
@@ -29,6 +13,8 @@ public class MathCalculator {
 		} else {
 			res = false;
 		}
+		
+		//assert(Controller.markLocation("locate_check_001"));
 		Controller.markLocation("locate_check_001");
 		
 		return res;
@@ -38,18 +24,21 @@ public class MathCalculator {
 		if (a >= 'a' && a <= 'z') {
 			a = (char)(a + 'A' - 'a');
 		} 
+		//assert(Controller.markLocation("locate_check_002"));
 		Controller.markLocation("locate_check_002");
 		return a;
 	}
 	
 	public int sum (int a, int b) {
 		int res=a+b;
+		//assert(Controller.markLocation("locate_check_003"));
 		Controller.markLocation("locate_check_003");
 		return  res;
 	}
 	
 	public String sumString (String a, String b) {
 		String res = a + b;
+		//assert(Controller.markLocation("locate_check_004"));
 		Controller.markLocation("locate_check_004");
 		return res;
 	}

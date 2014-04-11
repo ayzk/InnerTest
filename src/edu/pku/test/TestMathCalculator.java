@@ -9,8 +9,9 @@ public class TestMathCalculator {
 
 	@Test
 	public void cal1() {
-		Controller.addCheck(28, 1, yc, true, "res");
-		yc.isPositive(-1);
+		//Controller.addCheck(28, 1, yc, true, "res");
+		Controller.addCheck("locate_check_001",1,yc,true,"res");
+		//yc.isPositive(-1);
 	}
 	
 	@Test

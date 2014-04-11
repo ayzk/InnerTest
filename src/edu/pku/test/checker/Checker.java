@@ -2,9 +2,15 @@ package edu.pku.test.checker;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
+
+import sun.tools.tree.ThisExpression;
+
+import com.sun.tools.javac.util.List;
+import com.sun.xml.internal.rngom.binary.ElementPattern;
 
 import edu.pku.test.constants.ActionKeys;
 import edu.pku.test.expression.Expression;
@@ -23,6 +29,10 @@ public class Checker {
 	protected String className;
 	protected Object obj = null;
 	protected int objectType;
+	
+	protected StackTraceElement addCheckStackTrace;
+	protected int CheckerLine;
+	
 	private Object value;
 	private String expr;
 	
@@ -39,9 +49,23 @@ public class Checker {
 		this.obj = obj;
 		this.value = value;
 		this.expr = expr;
+		this.CheckerLine=-1;
 		validateExpression();
 		init();
 	}
+	
+	public Checker (int times, Object obj, Object value, String expr,int line, StackTraceElement element) {
+		this.times = times;
+		this.obj = obj;
+		this.value = value;
+		this.expr = expr;
+		this.CheckerLine=line;
+		this.addCheckStackTrace=element;
+		validateExpression();
+		init();
+	}
+	
+	
 	
 	@SuppressWarnings("rawtypes")
 	private void init() {
@@ -76,10 +100,45 @@ public class Checker {
 					expression.setVariableValue(entry.getKey(), entry.getValue());
 					
 				}
-				assertEquals(this.value, expression.evaluate().getValue());
+				try{
+					assertEquals(this.value, expression.evaluate().getValue());
+				}
+				catch(AssertionError t){
+					
+					StackTraceElement[] elements= t.getStackTrace();
+	
+					ArrayList<StackTraceElement> userStackTrace= new ArrayList<StackTraceElement>();		
+					int i;
+					for (i=0; i<elements.length && !elements[i].getClassName().startsWith("edu.pku.test"); i++)
+					{
+						//System.out.println(elements[i]);	
+						userStackTrace.add(elements[i]);
+					}
+					//System.out.println(this.addCheckStackTrace);
+					for (;i<elements.length && elements[i].getClassName().startsWith("edu.pku.test");i++);
+					
+					if (elements[i-1].getClassName().equals( this.addCheckStackTrace.getClassName() )
+						&& elements[i-1].getMethodName().equals( this.addCheckStackTrace.getMethodName())
+						 &&   elements[i-1].getFileName().equals( this.addCheckStackTrace.getFileName()) ){
+						
+						userStackTrace.add(new StackTraceElement(elements[i-2].getClassName(),
+								elements[i-2].getMethodName(), elements[i-2].getFileName(), this.CheckerLine));
+						userStackTrace.add(this.addCheckStackTrace);
+						userStackTrace.add(elements[i-1]);
+					}
+					for (;i<elements.length;userStackTrace.add(elements[i++]));		
+					
+					StackTraceElement[] elements2=userStackTrace.toArray(new StackTraceElement[userStackTrace.size()]);
+					//for (StackTraceElement s: elements)
+					//	System.out.println(s);
+
+			        t.setStackTrace(elements2);
+			        throw(t);
+					}
+			   }
 			}
 		}
-	}
+
 	
 	/**
 	 * Get variable names in expression except instant numbers
@@ -119,6 +178,9 @@ public class Checker {
 	
 	public Object getObject(){
 		return obj;
+	}
+	public void setCheckerLine(int line){
+		CheckerLine=line;
 	}
 	
 }

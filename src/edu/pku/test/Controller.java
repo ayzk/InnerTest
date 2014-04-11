@@ -14,6 +14,9 @@ import edu.pku.test.checker.Checker;
 import edu.pku.test.constants.ActionKeys;
 import edu.pku.test.instrument.Instrumentor;
 import edu.pku.test.instrument.InstrumentorConfig;
+import edu.pku.test.instrument.agent.LabelInstrumentAgent;
+import edu.pku.test.instrument.agent.LineNumberInstrumentAgent;
+import edu.pku.test.instrument.agent.RelativeLineNumberInstrumentAgent;
 import edu.pku.test.util.ClassSwapper;
 
 /**
@@ -63,30 +66,49 @@ public class Controller {
 	}
 	
 	/**
+	 * Get the StackTraceElement of addcheck()
+	 * @return
+	 */
+	public static StackTraceElement getAddCheckStackTrace(){
+		StackTraceElement stack[] = (new Throwable()).getStackTrace();
+		if (stack.length<4){
+			System.err.println("[ERROR] edu.pku.test.Controller.getAddCheckLineNum(): stack.length<3");
+			return new StackTraceElement(null, null, null, 0);
+		}
+		else {
+			return stack[3];
+		}		
+	}
+	
+	/**
 	 * The interface for end user.
 	 * To add a check expression like assertion in Junit, but more detailed.
 	 */
 	
-	
-	public static int addCheck(int lineNo, int times, Object obj, Object value, String expr) {
+	public static int _addCheck(int lineNo, int times, Object obj, Object value, String expr) {
 		createInstance();
-		Checker checker = new Checker(times, obj, value, expr);
+		StackTraceElement addCheckStackTrace=getAddCheckStackTrace();
+		Checker checker = new Checker(times, obj, value, expr,lineNo,addCheckStackTrace);
 		int objectType = checker.getObjectType();
 		int checkerId = controller.checkers.size();
 		InstrumentorConfig ic = new InstrumentorConfig(checker.getVariableNames(), lineNo, checkerId, ActionKeys.CHECK_TYPE_GENERAL, objectType);
 
 		return add(checker, ic);
 	}
+	public static int addCheck(int lineNo, int times, Object obj, Object value, String expr) {
+		return _addCheck( lineNo ,times,  obj,  value,  expr) ;
+	}
+	
 	public static int addCheck(int  lineNo, int times, Object obj, String expr) {		
-		return addCheck( lineNo ,times,  obj,  true,  expr) ;
+		return _addCheck( lineNo ,times,  obj,  true,  expr) ;
 	}
 	
 	public static int addCheck(int  lineNo, Object obj, Object value, String expr) {
-		return addCheck( lineNo, 1   ,  obj, value,  expr);
+		return _addCheck( lineNo, 1   ,  obj, value,  expr);
 	}
 	
 	public static int addCheck(int  lineNo, Object obj, String expr) {
-		return addCheck( lineNo, 1   ,  obj,  true,  expr);
+		return _addCheck( lineNo, 1   ,  obj,  true,  expr);
 	}
 
 	public static int addCheck (Checker uc, int lineNo) {
@@ -108,9 +130,10 @@ public class Controller {
 ////		return add(checker, ic);
 ////	}
 	
-	public static int addCheck(String locationKey, int times, Object obj, Object value, String expr) {
+	public static int _addCheck(String locationKey, int times, Object obj, Object value, String expr) {
 		createInstance();
-		Checker checker = new Checker(times, obj, value, expr);
+		StackTraceElement addCheckStackTrace=getAddCheckStackTrace();
+		Checker checker = new Checker(times, obj, value, expr,-1,addCheckStackTrace);
 		int objectType = checker.getObjectType();
 		int checkerId = controller.checkers.size();
 		InstrumentorConfig ic = new InstrumentorConfig(checker.getVariableNames(), locationKey, checkerId, ActionKeys.CHECK_TYPE_EXPR, objectType);
@@ -118,16 +141,20 @@ public class Controller {
 		return add(checker, ic);
 	}
 	
+	public static int addCheck(String locationKey, int times, Object obj, Object value, String expr) {
+		return _addCheck( locationKey,times,  obj,  value,  expr) ;
+	}		
+	
 	public static int addCheck(String locationKey, int times, Object obj, String expr) {		
-		return addCheck( locationKey,times,  obj,  true,  expr) ;
+		return _addCheck( locationKey,times,  obj,  true,  expr) ;
 	}
 	
 	public static int addCheck(String locationKey, Object obj, Object value, String expr) {
-		return addCheck( locationKey, 1   ,  obj, value,  expr);
+		return _addCheck( locationKey, 1   ,  obj, value,  expr);
 	}
 	
 	public static int addCheck(String locationKey, Object obj, String expr) {
-		return addCheck( locationKey, 1   ,  obj,  true,  expr);
+		return _addCheck( locationKey, 1   ,  obj,  true,  expr);
 	}
 
 	
@@ -170,6 +197,9 @@ public class Controller {
 */	
 		// Instrumentation
 		tb = Instrumentor.instrument(tb, ic);
+		
+		if (ic.getLocationType() == InstrumentorConfig.KEY_ID_STRING)
+			checker.setCheckerLine(ic.getLineNo());
 
 		// Hot swap, update the class in JVM by the instrumented class
 		ClassSwapper.swap(className, tb);
@@ -189,14 +219,17 @@ public class Controller {
 	 */
 	public static void handleCheckExpr (Object obj, Map<String, Object> values, int checkerId) {
 		createInstance();
-		System.out.print("edu.pku.test.Controller.handleCheckExpr-[DEBUG]");
-		System.out.println("<checkerid:"+checkerId+"><obj_now:"+obj+"><obj_tocheck:"+controller.checkers.get(checkerId).getObject()+">");
+		//System.out.print("edu.pku.test.Controller.handleCheckExpr-[DEBUG]");
+		//System.out.println("<checkerid:"+checkerId+"><obj_now:"+obj+"><obj_tocheck:"+controller.checkers.get(checkerId).getObject()+">");
 		controller.checkers.get(checkerId).checkExpression(obj, values);
 	}
 	
 	/*
 	 * to locate
 	 */
-	public static void markLocation(String idString) {
+//	public static void markLocation(String idString) {
+//	}
+	public static boolean markLocation(String idString) {
+		return true;
 	}
 }
