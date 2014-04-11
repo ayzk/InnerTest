@@ -1,9 +1,11 @@
-package edu.pku.test;
+package edu.pku.innerTest.test;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Test;
+
+import edu.pku.innerTest.Controller;
 
 public class TestDiff2 {
 

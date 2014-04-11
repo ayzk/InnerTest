@@ -38,7 +38,7 @@ import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
-import edu.pku.test.constants.ActionKeys;
+import edu.pku.innerTest.ActionKeys;
 import edu.pku.test.instrument.utils.ByteCodeUtil;
 import edu.pku.test.instrument.variables.Variable;
 import edu.pku.test.instrument.variables.VariableFactory;
@@ -104,7 +104,7 @@ public class Transformer {
 	 * Location type is user defined id string
 	 */
 	public static void tranformWithIDString(ClassNode cn, InstrumentorConfig ic) {
-		// TODO 修改默认+1行是目标行的方式
+		// TODO 
 		int lineNo = getLineNoByIDString(cn, ic.getLocationMark());
 		ic.setLineNo(lineNo);
 		transformWithLineNo(cn, ic);

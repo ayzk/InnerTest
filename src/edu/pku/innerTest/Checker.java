@@ -1,4 +1,4 @@
-package edu.pku.test.checker;
+package edu.pku.innerTest;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,7 +12,6 @@ import sun.tools.tree.ThisExpression;
 import com.sun.tools.javac.util.List;
 import com.sun.xml.internal.rngom.binary.ElementPattern;
 
-import edu.pku.test.constants.ActionKeys;
 import edu.pku.test.expression.Expression;
 import edu.pku.test.expression.ExpressionFactory;
 
@@ -109,13 +108,13 @@ public class Checker {
 	
 					ArrayList<StackTraceElement> userStackTrace= new ArrayList<StackTraceElement>();		
 					int i;
-					for (i=0; i<elements.length && !elements[i].getClassName().startsWith("edu.pku.test"); i++)
+					for (i=0; i<elements.length && !elements[i].getClassName().startsWith("edu.pku.innerTest"); i++)
 					{
 						//System.out.println(elements[i]);	
 						userStackTrace.add(elements[i]);
 					}
 					//System.out.println(this.addCheckStackTrace);
-					for (;i<elements.length && elements[i].getClassName().startsWith("edu.pku.test");i++);
+					for (;i<elements.length && elements[i].getClassName().startsWith("edu.pku.innerTest");i++);
 					
 					if (elements[i-1].getClassName().equals( this.addCheckStackTrace.getClassName() )
 						&& elements[i-1].getMethodName().equals( this.addCheckStackTrace.getMethodName())

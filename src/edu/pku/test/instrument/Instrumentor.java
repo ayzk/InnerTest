@@ -21,7 +21,7 @@ public class Instrumentor {
 	
 	
 	public static byte[] instrument(byte[] tb, InstrumentorConfig ic) {
-		System.out.println("lineNo: " + ic.getLineNo());
+		//System.out.println("lineNo: " + ic.getLineNo());
 		return preTransform(tb, ic);
 	}
 	

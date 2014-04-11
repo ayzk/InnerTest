@@ -1,4 +1,4 @@
-package edu.pku.test;
+package edu.pku.innerTest;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,14 +10,8 @@ import java.util.Map.Entry;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.NotFoundException;
-import edu.pku.test.checker.Checker;
-import edu.pku.test.constants.ActionKeys;
 import edu.pku.test.instrument.Instrumentor;
 import edu.pku.test.instrument.InstrumentorConfig;
-import edu.pku.test.instrument.agent.LabelInstrumentAgent;
-import edu.pku.test.instrument.agent.LineNumberInstrumentAgent;
-import edu.pku.test.instrument.agent.RelativeLineNumberInstrumentAgent;
-import edu.pku.test.util.ClassSwapper;
 
 /**
  * 

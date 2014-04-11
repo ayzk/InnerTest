@@ -1,4 +1,4 @@
-package edu.pku.test;
+package edu.pku.innerTest.test;
 
 public class Calculator {
 	public int diff(int a, int b, int c) {

@@ -1,8 +1,11 @@
-package edu.pku.test;
+package edu.pku.innerTest.test;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.junit.After;
+
+import edu.pku.innerTest.Controller;
 
 /**
  * 

@@ -31,7 +31,7 @@ import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
-import edu.pku.test.constants.ActionKeys;
+import edu.pku.innerTest.ActionKeys;
 import edu.pku.test.instrument.utils.ByteCodeUtil;
 import edu.pku.test.instrument.variables.VariableFactory;
 
@@ -125,7 +125,7 @@ public class CodeGenerateAgent implements CodeGeneratable {
 		il.add(getInsnNodeOfThis(objectType));
 		il.add(new VarInsnNode(ALOAD, mapVariableIndex));
 		il.add(new LdcInsnNode(id));
-		il.add(new MethodInsnNode(INVOKESTATIC, "edu/pku/test/Controller", "handleCheckExpr", "(Ljava/lang/Object;Ljava/util/Map;I)V"));
+		il.add(new MethodInsnNode(INVOKESTATIC, "edu/pku/innerTest/Controller", "handleCheckExpr", "(Ljava/lang/Object;Ljava/util/Map;I)V"));
 		
 		return il;
 	}

@@ -12,7 +12,7 @@ import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.LineNumberNode;
 import org.objectweb.asm.tree.MethodNode;
 
-import edu.pku.test.constants.ActionKeys;
+import edu.pku.innerTest.ActionKeys;
 import edu.pku.test.instrument.CodeGenerateAgent;
 import edu.pku.test.instrument.Instrumentable;
 import edu.pku.test.instrument.Instrumentor;

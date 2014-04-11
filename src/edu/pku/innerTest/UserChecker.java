@@ -1,11 +1,10 @@
-package edu.pku.test;
+package edu.pku.innerTest;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 
-import edu.pku.test.checker.Checker;
-import edu.pku.test.constants.ActionKeys;
+import edu.pku.innerTest.ActionKeys;
 
 public class UserChecker extends Checker {
 

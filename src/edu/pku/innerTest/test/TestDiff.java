@@ -1,4 +1,4 @@
-package edu.pku.test;
+package edu.pku.innerTest.test;
 
 import static org.junit.Assert.assertEquals;
 

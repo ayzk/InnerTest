@@ -1,4 +1,7 @@
-package edu.pku.test;
+package edu.pku.innerTest.test;
+
+import edu.pku.innerTest.Controller;
+
 
 public class MathCalculator {
 	

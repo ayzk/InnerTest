@@ -1,7 +1,10 @@
-package edu.pku.test;
+package edu.pku.innerTest.test;
 
 import org.junit.Test;
 import org.junit.After;
+
+import edu.pku.innerTest.Controller;
+import edu.pku.innerTest.UserChecker;
 
 public class TestMathCalculator {
 
