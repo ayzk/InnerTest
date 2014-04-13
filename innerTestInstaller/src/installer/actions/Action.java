@@ -25,21 +25,9 @@ import java.io.BufferedReader;
 import java.io.File; 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException; 
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.Reader;
 
-import javax.xml.parsers.DocumentBuilder; 
-import javax.xml.parsers.DocumentBuilderFactory; 
-import javax.xml.parsers.ParserConfigurationException; 
-
-import org.w3c.dom.Document; 
-import org.w3c.dom.Element; 
-import org.w3c.dom.Node; 
-import org.w3c.dom.NodeList; 
-import org.xml.sax.SAXException; 
 
 
 
@@ -76,13 +64,13 @@ public class Action implements IWorkbenchWindowActionDelegate {
 	 */
 	public void run(IAction action) {
 		IProject proj=getCurrentProject();
+		//System.out.println(proj.getLocation());
 		
-		System.out.println(proj.getLocation());
 		IFile classpathFile=proj.getFile(".classpath");
 		String classpathString=classpathFile.getLocation().toString();
-		System.out.println(classpathString);
+		//System.out.println(classpathString);
 
-		changeClassPath(classpathString);
+		addClassPath(classpathString);
 		
         MessageDialog.openInformation(
 			window.getShell(),
@@ -91,7 +79,7 @@ public class Action implements IWorkbenchWindowActionDelegate {
   } 
 
 		
-	public static void changeClassPath(String fileName) {
+	public static void addClassPath(String fileName) {
 	    try{		   
 		   	File inFile = new File(fileName);
 	        File outFile = File.createTempFile(fileName, ".tmp");  

@@ -1,11 +1,15 @@
 package edu.pku.innerTest;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.util.CheckClassAdapter;
 
 import javassist.CannotCompileException;
 import javassist.ClassPool;
@@ -177,21 +181,14 @@ public class Controller {
  		} else {
  			tb = ClassSwapper.getByteCode(className);
  		}
-		
-/*		try{
-			FileOutputStream writebyte0 = new FileOutputStream("src" + ic.getId() + ".class"); 
-			writebyte0.write(tb);
-			writebyte0.close();
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		System.out.println("[class name]"+className);
-*/	
+	
 		// Instrumentation
 		tb = Instrumentor.instrument(tb, ic);
 		
+		//verify instrumentation 
+		CheckClassAdapter.verify(new ClassReader(tb), false, new PrintWriter(System.out));
+		
+		//get  number of checked line
 		if (ic.getLocationType() == InstrumentorConfig.KEY_ID_STRING)
 			checker.setCheckerLine(ic.getLineNo());
 

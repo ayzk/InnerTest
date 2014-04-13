@@ -9,17 +9,18 @@ import edu.pku.innerTest.UserChecker;
 public class TestMathCalculator {
 
 	 MathCalculator yc = new MathCalculator();
+	 public static boolean x = false;
 
 	@Test
 	public void cal1() {
-		//Controller.addCheck(28, 1, yc, true, "res");
+		//Controller.addCheck(17, 1, yc, false, "res");
 		Controller.addCheck("locate_check_001",1,yc,true,"res");
-		//yc.isPositive(-1);
+		yc.isPositive(-1);
 	}
 	
 	@Test
 	public void cal2() {
-		Controller.addCheck("locate_check_002", 1, yc, 'A', "a");
+		Controller.addCheck("locate_check_002", 1, yc, "'A'==a");
 
 		yc.toUpper('a');
 	}

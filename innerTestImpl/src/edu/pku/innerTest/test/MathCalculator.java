@@ -1,5 +1,7 @@
 package edu.pku.innerTest.test;
 
+import com.sun.org.apache.bcel.internal.generic.GOTO;
+
 import edu.pku.innerTest.Controller;
 
 
@@ -10,15 +12,24 @@ public class MathCalculator {
 //	 public int int1;
 	
 	public boolean isPositive(int a) {
-		boolean res;
+		boolean res=false;
 		if (a > 0) {
 			res = true;
 		} else {
 			res = false;
+			Controller.markLocation("locate_check_001");
+			
 		}
 		
 		//assert(Controller.markLocation("locate_check_001"));
-		Controller.markLocation("locate_check_001");
+		//Controller.markLocation("locate_check_001");
+		
+		if (a > 0) {
+			res = true;
+		} else {
+			res = false;
+			
+		}
 		
 		return res;
 	}
@@ -70,6 +81,7 @@ public class MathCalculator {
 		int int1=a;
 		Controller.markLocation("locate_check_009");
 		Controller.markLocation("locate_check_010");
+		assert (!TestMathCalculator.x || int1 == a);
 		Controller.markLocation("locate_check_011");
 		Controller.markLocation("locate_check_012");
 		return int1;
